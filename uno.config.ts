@@ -19,9 +19,9 @@ export default defineConfig({
     'flex-col-center': 'flex-center flex-col',
     'absolute-lt': 'absolute left-0 top-0',
     'absolute-center': 'absolute-lt flex-center wh-full',
-    'boder-b-solid': 'border-b-[1px] border-b-solid border-[#eee]',
-    'boder-r-solid': 'border-r-[1px] border-r-solid border-[#eee]',
-    'boder-l-solid': 'border-l-[1px] border-l-solid border-[#eee]',
+    'border-bottom': 'border-b-[1px] border-b-solid border-[#ccc]',
+    'border-right': 'border-r-[1px] border-r-solid border-[#ccc]',
+    'border-left': 'border-l-[1px] border-l-solid border-[#ccc]',
   },
   theme: {
     colors: {

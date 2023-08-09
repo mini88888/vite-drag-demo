@@ -3,7 +3,7 @@ import { ref } from 'vue'
 </script>
 
 <template>
-<div class="h-[50px] boder-b-solid flex-y-center p-x-[10px] m-b-[5px]">
+<div class=" border-bottom flex-y-center p-x-[10px]">
   <el-button>JSON</el-button>
   <el-button>撤销</el-button>
   <el-button>重做</el-button>

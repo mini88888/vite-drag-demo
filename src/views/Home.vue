@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import ToolBar from '@/components/ToolBar.vue'
+import ComponentList from '@/components/ComponentList.vue'
 </script>
 
 <template>
-  <div class="wh-full flex-col">
+  <div class="wh-full grid grid-rows-[50px_auto]">
     <!-- ToolBar -->
     <ToolBar />
-    <div class=" flex-[1] flex-between">
-      <div class="w-[200px] h-full flex-col">
-        <div class="h-[60%]"></div>
-        <div class="h-[40%]"></div>
+    <div class="grid grid-cols-[200px_auto_250px]">
+      <div class="grid grid-rows-[60%_40%] border-right">
+        <ComponentList />
+        <div></div>
       </div>
       <div class=""></div>
-      <div class="w-[250px] h-full"></div>
+      <div class=""></div>
     </div>
   </div>
 </template>
