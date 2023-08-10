@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+
+const canvasStyleData = reactive({
+  width: 1200,
+  height: 768
+})
 </script>
 
 <template>
@@ -16,6 +21,16 @@ import { ref } from 'vue'
   <el-button>锁定</el-button>
   <el-button>解锁</el-button>
   <el-button>截图</el-button>
+  <div class="m-x-2">
+    画布大小：<el-input
+    class="w-20" 
+    v-model="canvasStyleData.width" 
+    placeholder="Please input" />* <el-input
+    class="w-20" 
+    v-model="canvasStyleData.height" 
+    placeholder="Please input" />
+  </div>
+  
 </div>
 </template>
 

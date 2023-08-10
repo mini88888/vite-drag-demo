@@ -2,6 +2,7 @@
 import ToolBar from '@/components/ToolBar.vue'
 import ComponentList from '@/components/ComponentList.vue'
 import RealTimeComponentList from '@/components/RealTimeComponentList.vue'
+import Editor from '@/components/Editor/index.vue'
 </script>
 
 <template>
@@ -15,7 +16,7 @@ import RealTimeComponentList from '@/components/RealTimeComponentList.vue'
       </div>
       <!-- 画布 -->
       <div>
-        
+        <Editor />
       </div>
       <!-- 右侧属性 -->
       <div class="border-left"></div>
