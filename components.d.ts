@@ -8,8 +8,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ComponentList: typeof import('./src/components/ComponentList.vue')['default']
+    copy: typeof import('./src/components/Editor/index copy.vue')['default']
+    Editor: typeof import('./src/components/Editor/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    Grid: typeof import('./src/components/Editor/Grid.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IEpCircleCheckFilled: typeof import('~icons/ep/circle-check-filled')['default']
     IEpPlus: typeof import('~icons/ep/plus')['default']
