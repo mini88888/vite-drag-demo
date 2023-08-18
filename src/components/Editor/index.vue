@@ -1,17 +1,37 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import Grid from '@/components/Editor/Grid.vue'
+import { reactive, onMounted } from 'vue'
+import Grid from './Grid.vue'
+import Shape from './Shape.vue'
 import { changeStyleSizeScale } from '@/utils'
+import { useStore } from '@/store' 
+import { getStyle } from '@/utils'
+import type { Style } from '@/types'
 
+const { 
+  getEditor, 
+  componentData, 
+  canvasStyleData, // 画布样式
+} = useStore()
+
+const svgFilterAttrs = reactive<string[]>(['width', 'height', 'top', 'left', 'rotate'],)
+
+// SVG样式
 const getCanvasStyle = ()=>{}
-const canvasStyleData = reactive({
-  width: 1200,
-  height: 768
+
+// 组件样式
+const getComponentStyle = (style:Style)=>{
+  return getStyle(style, svgFilterAttrs)
+}
+
+onMounted(()=>{
+  // 获取编辑器元素
+  getEditor();
 })
 </script>
 
 <template>
   <div 
+    id="editor"
     class="relative"
     :style="{
       ...getCanvasStyle(canvasStyleData),
@@ -20,6 +40,26 @@ const canvasStyleData = reactive({
     }">
     <!-- 网格线 -->
     <Grid />
+    <!--  -->
+    <Shape 
+      v-for="(item, index) in componentData"
+      :element="item">
+      <component 
+        class="wh-full"
+        :is="item.component"
+        :element="item"
+        :style="getComponentStyle(item.style)"
+        />
+      <!-- <component
+        :is="item.component"
+        :id="'component' + item.id"
+        class="component"
+        :style="getComponentStyle(item.style)"
+        :prop-value="item.propValue"
+        :element="item"
+        :request="item.request"
+        @input="handleInput" /> -->
+    </Shape>
   </div>
 </template>
 

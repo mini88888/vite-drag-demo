@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { useStore } from '@/store'
 
-const canvasStyleData = reactive({
-  width: 1200,
-  height: 768
-})
+const { canvasStyleData } = useStore()
 </script>
 
 <template>
@@ -24,11 +22,10 @@ const canvasStyleData = reactive({
   <div class="m-x-2">
     画布大小：<el-input
     class="w-20" 
-    v-model="canvasStyleData.width" 
-    placeholder="Please input" />* <el-input
+    v-model="canvasStyleData.width" />* 
+    <el-input
     class="w-20" 
-    v-model="canvasStyleData.height" 
-    placeholder="Please input" />
+    v-model="canvasStyleData.height" />
   </div>
   
 </div>

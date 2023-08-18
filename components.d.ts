@@ -18,6 +18,7 @@ declare module 'vue' {
     IEpCircleCheckFilled: typeof import('~icons/ep/circle-check-filled')['default']
     IEpPlus: typeof import('~icons/ep/plus')['default']
     RealTimeComponentList: typeof import('./src/components/RealTimeComponentList.vue')['default']
+    Shape: typeof import('./src/components/Editor/Shape.vue')['default']
     ToolBar: typeof import('./src/components/ToolBar.vue')['default']
   }
 }

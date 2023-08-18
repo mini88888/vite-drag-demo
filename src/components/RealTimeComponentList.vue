@@ -4,7 +4,8 @@
 
 <template>
   <div class="real-time-component-list">
-    <div>
+    <div
+      v-for="(item, index) in componentData">
       
     </div>
   </div>
