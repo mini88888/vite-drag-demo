@@ -4,7 +4,7 @@ import Grid from './Grid.vue'
 import Shape from './Shape.vue'
 import { changeStyleSizeScale } from '@/utils'
 import { useStore } from '@/store' 
-import { getStyle } from '@/utils'
+import { getStyle, getShapeStyle } from '@/utils'
 import type { Style } from '@/types'
 
 const { 
@@ -23,6 +23,11 @@ const getComponentStyle = (style:Style)=>{
   return getStyle(style, svgFilterAttrs)
 }
 
+// 组件移动
+const handleMouseDown = (e:HTMLElement)=>{
+
+}
+
 onMounted(()=>{
   // 获取编辑器元素
   getEditor();
@@ -32,18 +37,21 @@ onMounted(()=>{
 <template>
   <div 
     id="editor"
-    class="relative"
+    class="relative m-auto"
     :style="{
       ...getCanvasStyle(canvasStyleData),
       width: changeStyleSizeScale(canvasStyleData.width) + 'px',
       height: changeStyleSizeScale(canvasStyleData.height) + 'px',
-    }">
+    }"
+    @mousedown="handleMouseDown">
     <!-- 网格线 -->
     <Grid />
-    <!--  -->
+    <!-- 页面组件展示 -->
     <Shape 
       v-for="(item, index) in componentData"
-      :element="item">
+      :element="item"
+      :style="getShapeStyle(item.style)"
+      :defaultStyle="item.style">
       <component 
         class="wh-full"
         :is="item.component"

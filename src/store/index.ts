@@ -10,7 +10,12 @@ export const useStore = defineStore('store', () => {
   // 画布组件样式
   const canvasStyleData = reactive<CanvasStyleData>({
     width: 1200,
-    height: 768
+    height: 740,
+    scale: 100,
+    color: '#000',
+    opacity: 1,
+    background: '#fff',
+    fontSize: 14,
   })
 
   // 画布组件数据

@@ -14,7 +14,7 @@ onMounted(()=>{
 
 // 拖动组件到画布
 const handleDrop = (e: HTMLElement) => {
-  console.log(e)
+  console.log('handleDrop', e)
   e.preventDefault()
   e.stopPropagation()
   const index = e.dataTransfer.getData('index')
@@ -28,15 +28,15 @@ const handleDrop = (e: HTMLElement) => {
   }
 }
 const handleDragOver = (e: HTMLElement) => {
-  // console.log(e)
+  // console.log('handleDragOver', e)
   e.preventDefault()
   e.dataTransfer.dropEffect = 'copy'
 }
 const handleMouseDown = (e: HTMLElement) => {
-  // console.log(e)
+  // console.log('handleMouseDown', e)
 }
 const deselectCurComponent = (e: HTMLElement) => {
-  // console.log(e)
+  // console.log('deselectCurComponent', e)
 }
 </script>
 

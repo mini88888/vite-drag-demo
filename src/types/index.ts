@@ -1,3 +1,5 @@
+export * from './store'
+
 export interface Style {
   width?: number;
   height?: number;

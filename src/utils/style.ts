@@ -12,12 +12,22 @@ const needUnit = [
   'borderRadius',
 ]
 
+export const getShapeStyle = (style: Style) => {
+  const result: Record<string, any> = {};
+  ['width', 'height', 'top', 'left', 'rotate'].forEach(attr => {
+    if (!isVaildKey(attr, style)) return
+    if (attr != 'rotate') {
+      result[attr] = style[attr] + 'px'
+    } else {
+      result.transform = 'rotate(' + style[attr] + 'deg)'
+    }
+  })
+
+  return result
+}
+
 export const getStyle = (style: Style, filter: string[] = []) => {
-  console.log(style, filter);
-  interface Result extends Style {
-    transform?: string
-  }
-  const result: Result = {}
+  const result: Record<string, any> = {}
   Object.keys(style).forEach((key: string) => {
     if (!isVaildKey(key, style)) return
     if (!filter.includes(key)) {
@@ -27,8 +37,10 @@ export const getStyle = (style: Style, filter: string[] = []) => {
           result[key] = val
         }
       } else {
-        result.transform = `${key} (${style[key] as number}deg)`
+        result.transform = `${key}(${style[key]}deg)`
       }
     }
   })
+
+  return result
 }
