@@ -3,6 +3,8 @@ export * from './store'
 export interface Style {
   width?: number;
   height?: number;
+  top?: number
+  left?: number
   fontSize?: string;
   fontWeight?: number;
   lineHeight?: string;

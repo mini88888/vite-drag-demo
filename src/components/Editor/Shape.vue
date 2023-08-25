@@ -6,41 +6,45 @@ import type { componentItem } from '@/store/type'
 interface Props {
   active?: boolean
   element: componentItem
-  defaultStyle:Record<string, any>
+  defaultStyle:Record<string, any>,
+  index: number
 }
 const props = withDefaults(defineProps<Props>(), {
   active: true,
   element: {},
-  defaultStyle: {}
+  defaultStyle: {},
+  index: 0
 })
 
 const isActive = computed(() => props.active && !props.element?.isLock)
 const getPointList = () => {}
-const { canvasStyleData, setShapeStyle } = useStore()
+const { canvasStyleData, setCurComponent, setShapeStyle } = useStore()
 
 // 组件移动
 const handleMouseDownOnShape = (e:HTMLElement)=>{
   console.log('handleMouseDownOnShape', e);
   e.stopPropagation()
+  setCurComponent({
+    component: props.element,
+    index: props.index
+  })
 
   const { defaultStyle } = props;
-  console.log(defaultStyle);
   const pos = { ...defaultStyle }
   const startY = e.clientY
   const startX = e.clientX
   // 如果直接修改属性，值的类型会变为字符串，所以要转为数值型
   const startTop = Number(pos.top)
   const startLeft = Number(pos.left)
-
-  
   
   // 如果元素没有移动，则不保存快照
   let hasMove = false
   const move = (moveEvent:HTMLElement)=>{
-    console.log('move', e);
+    console.log('move', moveEvent);
     hasMove = true;
     const curX = moveEvent.clientX
     const curY = moveEvent.clientY
+    
     pos.top = curY - startY + startTop
     pos.left = curX - startX + startLeft
     setShapeStyle(pos)

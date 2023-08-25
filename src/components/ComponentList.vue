@@ -8,7 +8,7 @@ const handleDragStart = (e: HTMLElement) => {
 
 <template>
   <div @dragstart="handleDragStart"
-       class="component-list border-bottom p-2 grid grid-cols-2 gap-4 grid-rows-[repeat(auto-fill,30px)]">
+       class="border-bottom p-2 grid grid-cols-2 gap-4 grid-rows-[repeat(auto-fill,30px)]">
     <div draggable="true"
          class="border border-[#aaa] border-solid flex-center rounded cursor-pointer"
          v-for="(item, index) in componentList"

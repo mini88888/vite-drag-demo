@@ -51,7 +51,8 @@ onMounted(()=>{
       v-for="(item, index) in componentData"
       :element="item"
       :style="getShapeStyle(item.style)"
-      :defaultStyle="item.style">
+      :defaultStyle="item.style"
+      :index="index">
       <component 
         class="wh-full"
         :is="item.component"
