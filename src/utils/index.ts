@@ -1,4 +1,5 @@
 export * from './style'
+export * from './generateID'
 import { multiply, divide } from 'mathjs'
 import { useStore } from '@/store'
 
@@ -12,3 +13,21 @@ export const changeStyleSizeScale = (value: number): number => {
 }
 
 export const isVaildKey = (key: string | number | symbol, object: Object): key is keyof object => key in object
+
+export const deepCopy = (target: any) => {
+  if (typeof target === 'object') {
+    const result: Record<string, any> = Array.isArray(target) ? [] : {}
+    for (const key in target) {
+      if (!isVaildKey(key, target)) return
+      if (typeof target[key] == 'object') {
+        result[key] = deepCopy(target[key])
+      } else {
+        result[key] = target[key]
+      }
+    }
+
+    return result
+  }
+
+  return target
+}

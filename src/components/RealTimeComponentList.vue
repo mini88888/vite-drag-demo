@@ -2,6 +2,7 @@
 import { useStore } from '@/store'
 
 const { componentData } = useStore()
+
 </script>
 
 <template>
@@ -9,8 +10,8 @@ const { componentData } = useStore()
     <div
       v-for="(item, index) in componentData">
       <div class="flex-y-center m-b-2">
-        <span class="w-[24px] h-[24px] flex-center border border-[#aaa] border-solid rounded m-r-1"><i class="iconfont text-xs" :class="item.icon"></i></span>
-        <span class="text-ms">{{item.label}}</span>
+        <span class="w-[16px] h-[16px] flex-center border border-[#aaa] border-solid m-r-1"><i class="iconfont scale-50" :class="item.icon"></i></span>
+        <span class="text-xs">{{item.label}}</span>
       </div>
     </div>
   </div>

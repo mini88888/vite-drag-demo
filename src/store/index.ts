@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { reactive, ref } from "vue";
+import { reactive, ref, computed } from "vue";
 import compose from './compose'
 import type { CanvasStyleData, componentItem, Style } from '@/types'
 
@@ -40,7 +40,6 @@ export const useStore = defineStore('store', () => {
   // 设置组件样式
   const setShapeStyle = ({ top, left, width, height, rotate }: Style) => {
     // console.log('curComponent', curComponent);
-
     if (top !== undefined) curComponent.style.top = Math.round(top)
     if (left !== undefined) curComponent.style.left = Math.round(left)
     if (width) curComponent.style.width = Math.round(width)
@@ -53,6 +52,8 @@ export const useStore = defineStore('store', () => {
     editMode,
     canvasStyleData,
     componentData,
+    curComponent,
+    curComponentId: computed(() => curComponent?.id),
     addComponent,
     setCurComponent,
     setShapeStyle

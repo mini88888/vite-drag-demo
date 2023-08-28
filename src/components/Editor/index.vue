@@ -4,14 +4,19 @@ import Grid from './Grid.vue'
 import Shape from './Shape.vue'
 import { changeStyleSizeScale } from '@/utils'
 import { useStore } from '@/store' 
+import { storeToRefs } from 'pinia'
 import { getStyle, getShapeStyle } from '@/utils'
 import type { Style } from '@/types'
+
+const store = useStore()
 
 const { 
   getEditor, 
   componentData, 
   canvasStyleData, // 画布样式
-} = useStore()
+} = store
+
+const { curComponent, curComponentId } = storeToRefs(store)
 
 const svgFilterAttrs = reactive<string[]>(['width', 'height', 'top', 'left', 'rotate'],)
 
@@ -49,12 +54,16 @@ onMounted(()=>{
     <!-- 页面组件展示 -->
     <Shape 
       v-for="(item, index) in componentData"
+      :key="item.id"
       :element="item"
       :style="getShapeStyle(item.style)"
       :defaultStyle="item.style"
-      :index="index">
+      :index="index"
+      :active="item.id === (curComponent?.id || '')"
+      :class="{ lock: item.isLock }">
+      {{curComponent}}--{{curComponentId}}
       <component 
-        class="wh-full"
+        class="wh-full flex-y-center p-x-[5px]"
         :is="item.component"
         :element="item"
         :style="getComponentStyle(item.style)"

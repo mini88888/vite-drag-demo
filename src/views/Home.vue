@@ -6,6 +6,7 @@ import ComponentList from '@/components/ComponentList.vue'
 import RealTimeComponentList from '@/components/RealTimeComponentList.vue'
 import Editor from '@/components/Editor/index.vue'
 import componentList from '@/custom-component/component-list'
+import { deepCopy, generateID } from '@/utils'
  const { addComponent } = useStore()
 
 onMounted(()=>{
@@ -20,10 +21,10 @@ const handleDrop = (e: HTMLElement) => {
   const index = e.dataTransfer.getData('index')
   const rectInfo = editor.getBoundingClientRect()
   if (index) {
-    const component = componentList[index];
+    const component = deepCopy(componentList[index]);
     component.style.top = e.clientY - rectInfo.y
     component.style.left = e.clientX - rectInfo.x
-    
+    component.id = generateID();
     addComponent(component)
   }
 }

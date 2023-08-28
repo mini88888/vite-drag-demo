@@ -25,6 +25,7 @@ interface Request {
 }
 
 export interface componentItem {
+  id: string,
   component: string;
   label: string;
   propValue: string;

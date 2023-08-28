@@ -1,8 +1,12 @@
+// 公共样式
 const commonStyle = {
   rotate: 0,
   opacity: 1,
 }
 
+export const commonAttr = {
+  isLock: false, // 是否锁定组件
+}
 
 const list = [{
   component: 'VText',
@@ -31,6 +35,7 @@ const list = [{
 }]
 
 list.forEach(item => {
+  Object.assign(item, commonAttr)
   Object.assign(item.style, commonStyle)
 })
 
