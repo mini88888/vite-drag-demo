@@ -7,9 +7,11 @@ import RealTimeComponentList from '@/components/RealTimeComponentList.vue'
 import Editor from '@/components/Editor/index.vue'
 import componentList from '@/custom-component/component-list'
 import { deepCopy, generateID } from '@/utils'
- const { addComponent } = useStore()
+import { storeToRefs } from 'pinia'
 
-onMounted(()=>{
+const store = useStore()
+
+onMounted(() => {
   const { editor } = useStore()
 })
 
@@ -21,11 +23,11 @@ const handleDrop = (e: HTMLElement) => {
   const index = e.dataTransfer.getData('index')
   const rectInfo = editor.getBoundingClientRect()
   if (index) {
-    const component = deepCopy(componentList[index]);
+    const component = deepCopy(componentList[index])
     component.style.top = e.clientY - rectInfo.y
     component.style.left = e.clientX - rectInfo.x
-    component.id = generateID();
-    addComponent(component)
+    component.id = generateID()
+    store.addComponent(component)
   }
 }
 const handleDragOver = (e: HTMLElement) => {
@@ -35,9 +37,19 @@ const handleDragOver = (e: HTMLElement) => {
 }
 const handleMouseDown = (e: HTMLElement) => {
   // console.log('handleMouseDown', e)
+  e.stopPropagation()
+  store.setClickComponentStatus(false)
 }
 const deselectCurComponent = (e: HTMLElement) => {
   // console.log('deselectCurComponent', e)
+  console.log('isClickComponent', store.isClickComponent)
+
+  if (!store.isClickComponent) {
+    store.setCurComponent({
+      component: null,
+      index: -1
+    })
+  }
 }
 </script>
 

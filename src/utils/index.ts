@@ -1,5 +1,6 @@
 export * from './style'
 export * from './generateID'
+export * from './translate'
 import { multiply, divide } from 'mathjs'
 import { useStore } from '@/store'
 
