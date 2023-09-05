@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, withDefaults, onMounted, reactive } from 'vue'
+import { computed, withDefaults, onMounted, reactive, ref } from 'vue'
 import { useStore } from '@/store'
 import type { componentItem } from '@/store/type'
-import { mod360 } from '@/utils'
+import { mod360, calculateComponentPositonAndSize } from '@/utils'
 import { storeToRefs } from 'pinia'
 
 interface Props {
@@ -76,15 +76,162 @@ const handleMouseDownOnShape = (e: MouseEvent) => {
   document.addEventListener('mouseup', up)
 }
 
+const shape = ref<HTMLDivElement>(null)
 // 旋转处理
-const handleRotate = () => {}
+const handleRotate = (e: MouseEvent) => {
+  store.setClickComponentStatus(true)
+  e.preventDefault()
+  e.stopPropagation()
+
+  // 初始坐标和初始角度
+  const pos = { ...props.defaultStyle }
+  const startY = e.clientY
+  const startX = e.clientX
+  const startRotate = pos.rotate
+
+  // 获取元素中心点位置
+  const rect = shape.value.getBoundingClientRect()
+  console.log('rect', rect)
+  const centerX = rect.left + rect.width / 2
+  const centerY = rect.top + rect.height / 2
+
+  // 旋转前的角度
+  console.log(
+    startY - centerY,
+    startX - centerX,
+    Math.atan2(startY - centerY, startX - centerX)
+  )
+
+  const rotateDegreeBefore =
+    Math.atan2(startY - centerY, startX - centerX) / (Math.PI / 180)
+
+  // 如果元素没有移动，则不保存快照
+  let hasMove = false
+  const move = (moveEvent: MouseEvent) => {
+    hasMove = true
+    const curX = moveEvent.clientX
+    const curY = moveEvent.clientY
+    // 旋转后的角度
+    const rotateDegreeAfter =
+      Math.atan2(curY - centerY, curX - centerX) / (Math.PI / 180)
+    // 获取旋转的角度值
+    pos.rotate = startRotate + rotateDegreeAfter - rotateDegreeBefore
+    // 修改当前组件样式
+    store.setShapeStyle(pos)
+  }
+
+  const up = () => {
+    document.removeEventListener('mousemove', move)
+    document.removeEventListener('mouseup', up)
+    cursors = getCursor() // 根据旋转角度获取光标位置
+  }
+
+  document.addEventListener('mousemove', move)
+  document.addEventListener('mouseup', up)
+}
 
 const pointList = ['lt', 't', 'rt', 'r', 'rb', 'b', 'lb', 'l'] // 八个方向
 const pointList2 = ['r', 'l'] // 左右两个方向
 const getPointList = () => {
   return props.element.component === 'line-shape' ? pointList2 : pointList
 }
-const handleMouseDownOnPoint = () => {}
+// 拉伸处理
+const handleMouseDownOnPoint = (point: string, e: MouseEvent) => {
+  store.setClickComponentStatus(true)
+  e.preventDefault()
+  e.stopPropagation()
+
+  const style = { ...props.defaultStyle }
+
+  // 组件宽高比
+  const proportion = style.width / style.height
+
+  // 组件中心点
+  const center = {
+    x: style.left + style.width / 2,
+    y: style.top + style.height / 2
+  }
+
+  // 获取画布位移信息
+  const editorRectInfo = store.editor.getBoundingClientRect()
+
+  // 获取 point 与实际拖动基准点的差值
+  const pointRect = e.target.getBoundingClientRect()
+
+  // 当前点击圆点相对于画布的中心坐标
+  const curPoint = {
+    x: Math.round(
+      pointRect.left - editorRectInfo.left + e.target.offsetWidth / 2
+    ),
+    y: Math.round(
+      pointRect.top - editorRectInfo.top + e.target.offsetHeight / 2
+    )
+  }
+
+  // 获取对称点的坐标
+  const symmetricPoint = {
+    x: center.x - (curPoint.x - center.x),
+    y: center.y - (curPoint.y - center.y)
+  }
+
+  // 是否需要保存快照
+  let needSave = false
+  // let isFirst = true
+
+  const needLockProportion = isNeedLockProportion()
+  const move = (moveEvent) => {
+    // 第一次点击时也会触发 move，所以会有“刚点击组件但未移动，组件的大小却改变了”的情况发生
+    // 因此第一次点击时不触发 move 事件
+    // if (isFirst) {
+    //   isFirst = false
+    //   return
+    // }
+
+    needSave = true
+    const curPositon = {
+      x: moveEvent.clientX - Math.round(editorRectInfo.left),
+      y: moveEvent.clientY - Math.round(editorRectInfo.top)
+    }
+
+    const pointInfo = {
+      center,
+      curPoint,
+      symmetricPoint
+    }
+
+    calculateComponentPositonAndSize({
+      point,
+      style,
+      curPositon,
+      proportion,
+      needLockProportion,
+      pointInfo
+    })
+
+    store.setShapeStyle(style)
+  }
+
+  const up = () => {
+    document.removeEventListener('mousemove', move)
+    document.removeEventListener('mouseup', up)
+    needSave && this.$store.commit('recordSnapshot')
+  }
+
+  document.addEventListener('mousemove', move)
+  document.addEventListener('mouseup', up)
+}
+
+const isNeedLockProportion = (): boolean => {
+  if (props.element.component != 'Group') return false
+  const ratates = [0, 90, 180, 360]
+  for (const component of props.element.propValue) {
+    if (!ratates.includes(mod360(parseInt(component.style.rotate)))) {
+      return true
+    }
+  }
+  return false
+}
+
 const getPointStyle = (point) => {
   const { width, height } = props.defaultStyle
   const hasT = /t/.test(point)
@@ -173,7 +320,8 @@ const getCursor = () => {
 </script>
 
 <template>
-  <div :class="active ? 'select-none outline outline-1 outline-[#70c0ff]' : ''"
+  <div ref="shape"
+       :class="active ? 'select-none outline outline-1 outline-[#70c0ff]' : ''"
        class="absolute hover:cursor-move text-[14px]"
        @click="selectCurComponent"
        @mousedown="handleMouseDownOnShape">

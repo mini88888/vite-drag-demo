@@ -1,6 +1,7 @@
 export * from './style'
 export * from './generateID'
 export * from './translate'
+export * from './calculateComponentPositonAndSize'
 import { multiply, divide } from 'mathjs'
 import { useStore } from '@/store'
 

@@ -1,5 +1,8 @@
 export * from './store'
-
+export interface Position {
+  x: number,
+  y: number
+}
 export interface Style {
   width?: number;
   height?: number;

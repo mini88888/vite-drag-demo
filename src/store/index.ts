@@ -32,12 +32,9 @@ export const useStore = defineStore('store', () => {
 
   // 标记当前组件
   const setCurComponent = ({ component, index }: { component: componentItem, index: number }) => {
-    console.log(component, index);
-
     curComponent.value = component
     curComponentIndex.value = index
   }
-
 
   // 设置组件样式
   const setShapeStyle = ({ top, left, width, height, rotate }: Style) => {
