@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from '@/store'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import ToolBar from '@/components/ToolBar.vue'
 import ComponentList from '@/components/ComponentList.vue'
 import RealTimeComponentList from '@/components/RealTimeComponentList.vue'
@@ -10,6 +10,8 @@ import { deepCopy, generateID } from '@/utils'
 import { storeToRefs } from 'pinia'
 
 const store = useStore()
+
+const activeName = ref<string>('attr')
 
 onMounted(() => {
   const { editor } = useStore()
@@ -74,7 +76,20 @@ const deselectCurComponent = (e: HTMLElement) => {
         </div>
       </section>
       <!-- 右侧属性 -->
-      <section class=""></section>
+      <section class="p-x-2">
+        <el-tabs v-if="store.curComponent"
+                 v-model="activeName"
+                 @tab-click="handleClick">
+          <el-tab-pane label="属性"
+                       name="attr">
+            <component :is="store.curComponent.component + 'Attr'" />
+          </el-tab-pane>
+          <el-tab-pane label="动画"
+                       name="animation">配置管理</el-tab-pane>
+          <el-tab-pane label="事件"
+                       name="events">角色管理</el-tab-pane>
+        </el-tabs>
+      </section>
     </div>
   </div>
 </template>

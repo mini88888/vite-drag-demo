@@ -57,7 +57,7 @@ onMounted(() => {
            :active="item.id === (curComponent || {})?.id"
            :index="index"
            :class="{ lock: item.isLock }">
-      <component class="wh-full flex-y-center p-x-[5px]"
+      <component class="wh-full flex-y-center"
                  :is="item.component"
                  :element="item"
                  :style="getComponentStyle(item.style)" />

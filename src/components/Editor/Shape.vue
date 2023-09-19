@@ -29,7 +29,7 @@ const selectCurComponent = (e: HTMLElement) => {
   e.preventDefault()
 }
 
-let cursors = reactive<Record<string, any>>({})
+const cursors = ref<Record<string, any>>({})
 
 // 组件移动
 const handleMouseDownOnShape = (e: MouseEvent) => {
@@ -44,7 +44,7 @@ const handleMouseDownOnShape = (e: MouseEvent) => {
 
   if (props.element.isLock) return
 
-  cursors = getCursor() // 根据旋转角度获取光标位置
+  cursors.value = getCursor() // 根据旋转角度获取光标位置
 
   const { defaultStyle } = props
   const pos = { ...defaultStyle }
@@ -91,17 +91,10 @@ const handleRotate = (e: MouseEvent) => {
 
   // 获取元素中心点位置
   const rect = shape.value.getBoundingClientRect()
-  console.log('rect', rect)
   const centerX = rect.left + rect.width / 2
   const centerY = rect.top + rect.height / 2
 
   // 旋转前的角度
-  console.log(
-    startY - centerY,
-    startX - centerX,
-    Math.atan2(startY - centerY, startX - centerX)
-  )
-
   const rotateDegreeBefore =
     Math.atan2(startY - centerY, startX - centerX) / (Math.PI / 180)
 
@@ -123,7 +116,8 @@ const handleRotate = (e: MouseEvent) => {
   const up = () => {
     document.removeEventListener('mousemove', move)
     document.removeEventListener('mouseup', up)
-    cursors = getCursor() // 根据旋转角度获取光标位置
+    // 根据旋转角度获取光标位置
+    cursors.value = getCursor()
   }
 
   document.addEventListener('mousemove', move)
@@ -214,7 +208,7 @@ const handleMouseDownOnPoint = (point: string, e: MouseEvent) => {
   const up = () => {
     document.removeEventListener('mousemove', move)
     document.removeEventListener('mouseup', up)
-    needSave && this.$store.commit('recordSnapshot')
+    // needSave && this.$store.commit('recordSnapshot')
   }
 
   document.addEventListener('mousemove', move)
@@ -264,7 +258,7 @@ const getPointStyle = (point) => {
     marginTop: '-4px',
     left: `${newLeft}px`,
     top: `${newTop}px`,
-    cursor: cursors[point]
+    cursor: cursors.value[point]
   }
 
   return style

@@ -2,6 +2,7 @@ export * from './style'
 export * from './generateID'
 export * from './translate'
 export * from './calculateComponentPositonAndSize'
+export * from './attr'
 import { multiply, divide } from 'mathjs'
 import { useStore } from '@/store'
 

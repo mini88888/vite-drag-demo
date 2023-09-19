@@ -13,6 +13,7 @@ const list = [{
   label: '文字',
   propValue: '双击编辑文字',
   icon: 'icon-characters',
+  iconSize: '12px',
   request: {
     method: 'GET',
     data: [],
@@ -31,6 +32,26 @@ const list = [{
     letterSpacing: 0,
     textAlign: '',
     color: '',
+  },
+}, {
+  component: 'VButton',
+  label: '按钮',
+  propValue: '按钮',
+  icon: 'icon-Icon_fuhao-anniu',
+  iconSize: '24px',
+  style: {
+    width: 100,
+    height: 34,
+    borderWidth: 1,
+    borderColor: '',
+    borderRadius: '',
+    fontSize: '',
+    fontWeight: 400,
+    lineHeight: '',
+    letterSpacing: 0,
+    textAlign: '',
+    color: '',
+    backgroundColor: '',
   },
 }]
 

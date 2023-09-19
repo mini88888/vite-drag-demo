@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
-import { computed, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import compose from './compose'
+import layer from './layer'
 import type { CanvasStyleData, componentItem, Style } from '@/types'
 
 export const useStore = defineStore('store', () => {
@@ -28,12 +29,21 @@ export const useStore = defineStore('store', () => {
 
   // 当前组件
   const curComponent = ref<componentItem>()
-  const curComponentIndex = ref<number>()
+  const curComponentIndex = ref<number>(-1)
 
   // 标记当前组件
   const setCurComponent = ({ component, index }: { component: componentItem, index: number }) => {
+    console.log(component, index);
+
     curComponent.value = component
     curComponentIndex.value = index
+  }
+
+  // 交换组件位置
+  const exchangeComPos = (i: number, j: number) => {
+    const temp = componentData[i]
+    componentData[i] = componentData[j]
+    componentData[j] = temp
   }
 
   // 设置组件样式
@@ -56,14 +66,17 @@ export const useStore = defineStore('store', () => {
   }
 
   return {
+    ...layer,
     ...compose,
     editMode,
     canvasStyleData,
     componentData,
     curComponent,
+    curComponentIndex,
     isClickComponent,
     addComponent,
     setCurComponent,
+    exchangeComPos,
     setShapeStyle,
     setClickComponentStatus
   }

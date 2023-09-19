@@ -11,8 +11,6 @@ import type { PluginOption } from 'vite'
  * @param viteEnv - 环境变量配置
  */
 function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] {
-  console.log('viteEnv', viteEnv);
-
   const Plugins = [
     vue(),
     unocss(),

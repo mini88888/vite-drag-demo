@@ -15,8 +15,9 @@ const handleDragStart = (e: HTMLElement) => {
          :key="item.label"
          :title="item.label"
          :data-index="index">
-      <i class="iconfont text-xs"
-         :class="item.icon"></i>
+      <i class="iconfont"
+         :class="item.icon"
+         :style="`font-size:${item.iconSize}`"></i>
     </div>
   </div>
 </template>
