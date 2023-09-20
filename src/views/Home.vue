@@ -56,9 +56,9 @@ const deselectCurComponent = (e: HTMLElement) => {
 </script>
 
 <template>
-  <div class="wh-full grid grid-rows-[50px_auto]">
+  <div class="wh-full">
     <ToolBar />
-    <div class="grid grid-cols-[200px_auto_288px]">
+    <div class="h-[calc(100%-50px)] grid grid-cols-[200px_auto_288px]">
       <!-- 左侧组件 -->
       <section class="grid grid-rows-[60%_40%]">
         <ComponentList />
@@ -76,7 +76,7 @@ const deselectCurComponent = (e: HTMLElement) => {
         </div>
       </section>
       <!-- 右侧属性 -->
-      <section class="p-x-2">
+      <section class="overflow-auto">
         <el-tabs v-if="store.curComponent"
                  v-model="activeName"
                  @tab-click="handleClick">

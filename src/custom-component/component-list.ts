@@ -53,7 +53,24 @@ const list = [{
     color: '',
     backgroundColor: '',
   },
-}]
+}, {
+  component: 'Picture',
+  label: '图片',
+  icon: 'icon-tupian',
+  propValue: {
+    // url: require('@/assets/title.jpg'),
+    url: () => import('@/assets/title.png'),
+    flip: {
+      horizontal: false,
+      vertical: false,
+    },
+  },
+  style: {
+    width: 300,
+    height: 200,
+    borderRadius: '',
+  },
+},]
 
 list.forEach(item => {
   Object.assign(item, commonAttr)

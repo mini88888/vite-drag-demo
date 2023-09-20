@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useStore } from '@/store'
 import type { componentItem } from '@/type'
 
 interface Props {
@@ -8,8 +6,6 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
-const store = useStore()
 </script>
 
 <template>

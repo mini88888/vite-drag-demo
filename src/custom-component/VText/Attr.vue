@@ -8,7 +8,7 @@ const { curComponent } = useStore()
 </script>
 
 <template>
-  <div class="attr-list">
+  <div class="overflow-auto h-full">
     <CommonAttr></CommonAttr>
     <el-form label-position="top">
       <el-form-item label="内容">
