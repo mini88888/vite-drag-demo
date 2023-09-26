@@ -60,6 +60,7 @@ onMounted(() => {
       <component class="wh-full flex-y-center"
                  :is="item.component"
                  :element="item"
+                 :prop-value="item.propValue"
                  :style="getComponentStyle(item.style)" />
       <!-- <component
         :is="item.component"

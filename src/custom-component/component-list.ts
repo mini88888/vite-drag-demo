@@ -1,3 +1,5 @@
+import title from '@/assets/title.jpg'
+
 // 公共样式
 const commonStyle = {
   rotate: 0,
@@ -59,7 +61,7 @@ const list = [{
   icon: 'icon-tupian',
   propValue: {
     // url: require('@/assets/title.jpg'),
-    url: () => import('@/assets/title.png'),
+    url: title,
     flip: {
       horizontal: false,
       vertical: false,
@@ -70,7 +72,59 @@ const list = [{
     height: 200,
     borderRadius: '',
   },
-},]
+}, {
+  component: 'RectShape',
+  label: '矩形',
+  propValue: '&nbsp;',
+  icon: 'icon-xingzhuang-juxing',
+  style: {
+    width: 200,
+    height: 200,
+    fontSize: '',
+    fontWeight: 400,
+    lineHeight: '',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '',
+    borderColor: '#000',
+    borderWidth: 1,
+    backgroundColor: '',
+    borderStyle: 'solid',
+    borderRadius: '',
+    verticalAlign: 'middle',
+  },
+}, {
+  component: 'LineShape',
+  label: '直线',
+  propValue: '',
+  icon: 'icon-hr',
+  style: {
+    width: 200,
+    height: 2,
+    backgroundColor: '#000',
+  },
+}, {
+  component: 'CircleShape',
+  label: '圆形',
+  propValue: '&nbsp;',
+  icon: 'icon-weixuanzhongyuanquan',
+  style: {
+    width: 200,
+    height: 200,
+    fontSize: '',
+    fontWeight: 400,
+    lineHeight: '',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '',
+    borderColor: '#000',
+    borderWidth: 1,
+    backgroundColor: '',
+    borderStyle: 'solid',
+    borderRadius: '',
+    verticalAlign: 'middle',
+  },
+}]
 
 list.forEach(item => {
   Object.assign(item, commonAttr)
