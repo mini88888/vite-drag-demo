@@ -124,7 +124,41 @@ const list = [{
     borderRadius: '',
     verticalAlign: 'middle',
   },
-}]
+}, {
+  component: 'SVGStar',
+  label: '星形',
+  icon: 'icon-star',
+  propValue: '',
+  style: {
+    width: 80,
+    height: 80,
+    fontSize: '',
+    fontWeight: 400,
+    lineHeight: '',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '',
+    borderColor: '#000',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+  },
+}, {
+  component: 'SVGTriangle',
+  label: '三角形',
+  icon: 'icon-xingzhuang-sanjiaoxing',
+  propValue: '',
+  style: {
+    width: 80,
+    height: 80,
+    fontSize: '',
+    fontWeight: 400,
+    lineHeight: '',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '',
+    borderColor: '#000',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+  },
+},]
 
 list.forEach(item => {
   Object.assign(item, commonAttr)

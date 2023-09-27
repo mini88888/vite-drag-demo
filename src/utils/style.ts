@@ -44,3 +44,40 @@ export const getStyle = (style: Style, filter: string[] = []) => {
 
   return result
 }
+
+
+export const getSVGStyle = (style: Style, filter: string[] = []) => {
+  const result: Record<string, any> = {};
+
+  [
+    'opacity',
+    'width',
+    'height',
+    'top',
+    'left',
+    'rotate',
+    'fontSize',
+    'fontWeight',
+    'lineHeight',
+    'letterSpacing',
+    'textAlign',
+    'color',
+  ].forEach(key => {
+    if (!isVaildKey(key, style)) return
+    if (!filter.includes(key)) {
+      if (key != 'rotate') {
+        if (style[key] !== '') {
+          result[key] = style[key]
+
+          if (needUnit.includes(key)) {
+            result[key] += 'px'
+          }
+        }
+      } else {
+        result.transform = key + '(' + style[key] + 'deg)'
+      }
+    }
+  })
+
+  return result
+}

@@ -1,14 +1,34 @@
 import { defineAsyncComponent } from 'vue';
 import type { App } from 'vue';
-import ComponentList from './component-list';
-// import VText from './VText/Component.vue'
+
+const components = [
+  'CircleShape',
+  'Picture',
+  'VText',
+  'VButton',
+  'Group',
+  'RectShape',
+  'LineShape',
+  'VTable',
+  'VChart',
+]
+
+const svgs = [
+  'SVGStar',
+  'SVGTriangle',
+]
 
 const setUpComponents = (app: App) => {
-  ComponentList.forEach(item => {
-    const { component } = item
-    app.component(component, defineAsyncComponent(() => import(`@/custom-component/${component}/Component.vue`)))
-    app.component(`${component}Attr`, defineAsyncComponent(() => import(`@/custom-component/${component}/Attr.vue`)))
+  components.forEach(key => {
+    app.component(key, defineAsyncComponent(() => import(`@/custom-component/${key}/Component.vue`)))
+    app.component(`${key}Attr`, defineAsyncComponent(() => import(`@/custom-component/${key}/Attr.vue`)))
+  })
+  svgs.forEach(key => {
+    app.component(key, defineAsyncComponent(() => import(`@/custom-component/svgs/${key}/Component.vue`)))
+    app.component(key + 'Attr', defineAsyncComponent(() => import(`@/custom-component/svgs/${key}/Attr.vue`)))
   })
 }
+
+
 
 export default setUpComponents

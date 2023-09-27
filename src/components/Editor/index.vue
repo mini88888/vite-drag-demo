@@ -5,7 +5,7 @@ import Shape from './Shape.vue'
 import { changeStyleSizeScale } from '@/utils'
 import { useStore } from '@/store'
 import { storeToRefs } from 'pinia'
-import { getStyle, getShapeStyle } from '@/utils'
+import { getStyle, getShapeStyle, getSVGStyle } from '@/utils'
 import type { Style } from '@/types'
 
 const store = useStore()
@@ -57,11 +57,22 @@ onMounted(() => {
            :active="item.id === (curComponent || {})?.id"
            :index="index"
            :class="{ lock: item.isLock }">
-      <component class="wh-full flex-y-center"
+      <component v-if="item.component.startsWith('SVG')"
+                 class="wh-full flex-y-center"
                  :is="item.component"
+                 :id="'component' + item.id"
+                 :style="getSVGStyle(item.style)"
+                 :prop-value="item.propValue"
+                 :element="item"
+                 :request="item.request" />
+      <component v-else
+                 class="wh-full flex-y-center"
+                 :is="item.component"
+                 :id="'component' + item.id"
                  :element="item"
                  :prop-value="item.propValue"
-                 :style="getComponentStyle(item.style)" />
+                 :style="getComponentStyle(item.style)"
+                 :request="item.request" />
       <!-- <component
         :is="item.component"
         :id="'component' + item.id"
