@@ -158,7 +158,80 @@ const list = [{
     borderColor: '#000',
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
-},]
+}, {
+  component: 'VTable',
+  label: '表格',
+  icon: 'icon-biaoge',
+  propValue: {
+    data: [
+      ['表头1', '表头2', '表头3'],
+      ['内容1', '内容2', '内容3'],
+    ],
+    stripe: true,
+    thBold: true,
+  },
+  request: {
+    method: 'GET',
+    data: [],
+    url: '',
+    series: false,
+    time: 1000,
+    paramType: '', // string object array
+    requestCount: 0, // 请求次数限制，0 为无限
+  },
+  style: {
+    width: 600,
+    height: 200,
+    fontSize: '',
+    fontWeight: 400,
+    textAlign: 'center',
+    color: '',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+  },
+}, {
+  component: 'VChart',
+  label: '图表',
+  icon: 'icon-tubiao',
+  propValue: {
+    chart: 'VChart',
+    option: {
+      title: {
+        text: '柱状图',
+        show: true,
+      },
+      legend: {
+        show: true,
+      },
+      tooltip: {
+        show: true,
+        trigger: 'item',
+      },
+      xAxis: {
+        show: true,
+        data: ['A', 'B', 'C', 'D', 'E'],
+      },
+      yAxis: {},
+      series: {
+        type: 'bar',
+        name: '销量',
+        data: [23, 61, 35, 77, 35],
+        itemStyle: {
+          barBorderRadius: 5,
+          borderWidth: 1,
+          borderType: 'solid',
+          borderColor: '#73c0de',
+          shadowColor: '#5470c6',
+          shadowBlur: 3,
+        },
+      },
+    },
+  },
+  style: {
+    width: 800,
+    height: 500,
+    borderRadius: '',
+  },
+}]
 
 list.forEach(item => {
   Object.assign(item, commonAttr)

@@ -3,6 +3,7 @@ export * from './generateID'
 export * from './translate'
 export * from './calculateComponentPositonAndSize'
 export * from './attr'
+export * from './request'
 import { multiply, divide } from 'mathjs'
 import { useStore } from '@/store'
 

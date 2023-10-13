@@ -10,6 +10,13 @@ const { curComponent } = useStore()
 <template>
   <div class="">
     <CommonAttr></CommonAttr>
+    <el-form label-position="top">
+      <el-form-item label="内容">
+        <el-input v-model="curComponent.propValue"
+                  type="textarea"
+                  :rows="3" />
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { componentItem } from '@/type'
 interface Props {
   element: componentItem
   propValue: componentItem.propValue

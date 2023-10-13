@@ -58,7 +58,7 @@ onMounted(() => {
            :index="index"
            :class="{ lock: item.isLock }">
       <component v-if="item.component.startsWith('SVG')"
-                 class="wh-full flex-y-center"
+                 class="wh-full"
                  :is="item.component"
                  :id="'component' + item.id"
                  :style="getSVGStyle(item.style)"
@@ -66,7 +66,7 @@ onMounted(() => {
                  :element="item"
                  :request="item.request" />
       <component v-else
-                 class="wh-full flex-y-center"
+                 class="wh-full"
                  :is="item.component"
                  :id="'component' + item.id"
                  :element="item"
