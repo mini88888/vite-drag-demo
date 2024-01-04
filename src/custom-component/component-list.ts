@@ -14,7 +14,7 @@ const list = [{
   component: 'VText',
   label: '文字',
   propValue: '双击编辑文字',
-  icon: 'icon-characters',
+  icon: 'characters',
   iconSize: '12px',
   request: {
     method: 'GET',
@@ -39,7 +39,7 @@ const list = [{
   component: 'VButton',
   label: '按钮',
   propValue: '按钮',
-  icon: 'icon-Icon_fuhao-anniu',
+  icon: 'Icon_fuhao-anniu',
   iconSize: '24px',
   style: {
     width: 100,
@@ -58,7 +58,7 @@ const list = [{
 }, {
   component: 'Picture',
   label: '图片',
-  icon: 'icon-tupian',
+  icon: 'tupian',
   propValue: {
     // url: require('@/assets/title.jpg'),
     url: title,
@@ -76,7 +76,7 @@ const list = [{
   component: 'RectShape',
   label: '矩形',
   propValue: '&nbsp;',
-  icon: 'icon-xingzhuang-juxing',
+  icon: 'xingzhuang-juxing',
   style: {
     width: 200,
     height: 200,
@@ -97,7 +97,7 @@ const list = [{
   component: 'LineShape',
   label: '直线',
   propValue: '',
-  icon: 'icon-hr',
+  icon: 'hr',
   style: {
     width: 200,
     height: 2,
@@ -107,7 +107,7 @@ const list = [{
   component: 'CircleShape',
   label: '圆形',
   propValue: '&nbsp;',
-  icon: 'icon-weixuanzhongyuanquan',
+  icon: 'weixuanzhongyuanquan',
   style: {
     width: 200,
     height: 200,
@@ -127,7 +127,7 @@ const list = [{
 }, {
   component: 'SVGStar',
   label: '星形',
-  icon: 'icon-star',
+  icon: 'star',
   propValue: '',
   style: {
     width: 80,
@@ -144,7 +144,7 @@ const list = [{
 }, {
   component: 'SVGTriangle',
   label: '三角形',
-  icon: 'icon-xingzhuang-sanjiaoxing',
+  icon: 'xingzhuang-sanjiaoxing',
   propValue: '',
   style: {
     width: 80,
@@ -161,7 +161,7 @@ const list = [{
 }, {
   component: 'VTable',
   label: '表格',
-  icon: 'icon-biaoge',
+  icon: 'biaoge',
   propValue: {
     data: [
       ['表头1', '表头2', '表头3'],
@@ -191,7 +191,7 @@ const list = [{
 }, {
   component: 'VChart',
   label: '图表',
-  icon: 'icon-tubiao',
+  icon: 'tubiao',
   propValue: {
     chart: 'VChart',
     option: {

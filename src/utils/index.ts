@@ -4,6 +4,7 @@ export * from './translate'
 export * from './calculateComponentPositonAndSize'
 export * from './attr'
 export * from './request'
+export * from './toast'
 import { multiply, divide } from 'mathjs'
 import { useStore } from '@/store'
 
@@ -34,4 +35,11 @@ export const deepCopy = (target: any) => {
   }
 
   return target
+}
+
+// 数组中交换项
+export const swap = (arr: Array<any>, i: number, j: number) => {
+  const temp = arr[i]
+  arr[i] = arr[j]
+  arr[j] = temp
 }
