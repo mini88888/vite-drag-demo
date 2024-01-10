@@ -1,4 +1,6 @@
 import { Position } from '@/types'
+import { divide, multiply } from 'mathjs'
+import { useStore } from '@/store'
 
 // 取余 360
 export const mod360 = (deg: number): number => (deg + 360) % 360
@@ -43,3 +45,7 @@ export const calculateRotatedPointCoordinate = (point: Position, center: Positio
   }
 }
 
+export function changeStyleWithScale(value: number) {
+  const { canvasStyleData } = useStore()
+  return multiply(value, divide(parseInt(`${canvasStyleData.scale}`), 100))
+}

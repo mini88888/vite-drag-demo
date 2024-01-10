@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AceEditor: typeof import('./src/components/Editor/AceEditor.vue')['default']
     ComponentList: typeof import('./src/components/ComponentList.vue')['default']
+    ComponentWrapper: typeof import('./src/components/Editor/ComponentWrapper.vue')['default']
     copy: typeof import('./src/components/Editor/index copy.vue')['default']
     Editor: typeof import('./src/components/Editor/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -29,6 +30,7 @@ declare module 'vue' {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IEpCircleCheckFilled: typeof import('~icons/ep/circle-check-filled')['default']
     IEpPlus: typeof import('~icons/ep/plus')['default']
+    Preview: typeof import('./src/components/Editor/Preview.vue')['default']
     RealTimeComponentList: typeof import('./src/components/RealTimeComponentList.vue')['default']
     Shape: typeof import('./src/components/Editor/Shape.vue')['default']
     ToolBar: typeof import('./src/components/ToolBar.vue')['default']

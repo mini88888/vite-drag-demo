@@ -5,7 +5,7 @@ import Shape from './Shape.vue'
 import { changeStyleSizeScale } from '@/utils'
 import { useStore } from '@/store'
 import { storeToRefs } from 'pinia'
-import { getStyle, getShapeStyle, getSVGStyle } from '@/utils'
+import { getStyle, getShapeStyle, getSVGStyle, getCanvasStyle } from '@/utils'
 import type { Style } from '@/types'
 
 const store = useStore()
@@ -19,9 +19,6 @@ const {
 // const {  } = useStore()
 
 const svgFilterAttrs = ['width', 'height', 'top', 'left', 'rotate']
-
-// SVG样式
-const getCanvasStyle = () => {}
 
 // 组件样式
 const getComponentStyle = (style: Style) => {

@@ -19,6 +19,8 @@ export default defineConfig({
     'flex-col-center': 'flex-center flex-col',
     'absolute-lt': 'absolute left-0 top-0',
     'absolute-center': 'absolute-lt flex-center wh-full',
+    'fixed-lt': 'fixed left-0 top-0',
+    'fixed-center': 'fixed-lt flex-center wh-full',
     'border-bottom': 'border-b-[1px] border-b-solid border-[#ddd]',
     'border-right': 'border-r-[1px] border-r-solid border-[#ddd]',
     'border-left': 'border-l-[1px] border-l-solid border-[#ddd]',

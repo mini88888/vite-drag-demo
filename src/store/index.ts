@@ -1,16 +1,25 @@
 import { defineStore } from "pinia";
 import { swap, toast } from '@/utils'
 import { reactive, ref } from "vue";
+import * as state from './state'
 import compose from './compose'
 import layer from './layer'
+import * as components from './components'
+import * as snapshot from './snapshot'
 import type { CanvasStyleData, componentItem, Style } from '@/types'
 
 export const useStore = defineStore('store', () => {
+  const { componentData, curComponent, curComponentIndex } = state
+
   // 编辑器模式 edit/preview
   const editMode = ref<string>('edit')
 
+  const setEditMode = (mode: string) => {
+    editMode.value = mode
+  }
+
   // 画布组件样式
-  const canvasStyleData = reactive<CanvasStyleData>({
+  let canvasStyleData = reactive<CanvasStyleData>({
     width: 1200,
     height: 740,
     scale: 100,
@@ -20,24 +29,9 @@ export const useStore = defineStore('store', () => {
     fontSize: 14,
   })
 
-  // 画布组件数据
-  const componentData = reactive<componentItem[]>([])
-
   // 添加组件
   const addComponent = (component: componentItem) => {
-    componentData.push(component)
-  }
-
-  // 当前组件
-  const curComponent = ref<componentItem | null>()
-  const curComponentIndex = ref<number>(-1)
-
-  // 标记当前组件
-  const setCurComponent = ({ component, index }: { component: componentItem, index: number }) => {
-    console.log('setCurComponent', component, index);
-
-    curComponent.value = component
-    curComponentIndex.value = index
+    componentData.value.push(component)
   }
 
 
@@ -55,15 +49,15 @@ export const useStore = defineStore('store', () => {
     }
 
     if (/\d/.test(`${index}`)) {
-      componentData.splice(index, 1)
+      componentData.value.splice(index, 1)
     }
   }
 
   // 上移图层
   const upComponent = () => {
     // 上移图层 index，表示元素在数组中越往后
-    if (curComponentIndex.value < componentData.length - 1) {
-      swap(componentData, curComponentIndex.value, curComponentIndex.value + 1)
+    if (curComponentIndex.value < componentData.value.length - 1) {
+      swap(componentData.value, curComponentIndex.value, curComponentIndex.value + 1)
       curComponentIndex.value = curComponentIndex.value + 1
     } else {
       toast('已经到顶了')
@@ -74,7 +68,7 @@ export const useStore = defineStore('store', () => {
   const downComponent = () => {
     // 下移图层 index，表示元素在数组中越往前
     if (curComponentIndex.value > 0) {
-      swap(componentData, curComponentIndex.value, curComponentIndex.value - 1)
+      swap(componentData.value, curComponentIndex.value, curComponentIndex.value - 1)
       curComponentIndex.value = curComponentIndex.value - 1
     } else {
       toast('已经到底了')
@@ -85,11 +79,11 @@ export const useStore = defineStore('store', () => {
   const setShapeStyle = ({ top, left, width, height, rotate }: Style) => {
     // console.log('curComponent', curComponent);
     let style: Record<string, any> = {}
-    if (top !== undefined) style.top = Math.round(top)
-    if (left !== undefined) style.left = Math.round(left)
-    if (width) style.width = Math.round(width)
-    if (height) style.height = Math.round(height)
-    if (rotate) style.rotate = Math.round(rotate)
+    if (top !== undefined) style.top = Math.round(top as number)
+    if (left !== undefined) style.left = Math.round(left as number)
+    if (width) style.width = Math.round(width as number)
+    if (height) style.height = Math.round(height as number)
+    if (rotate) style.rotate = Math.round(rotate as number)
     Object.assign((curComponent.value as componentItem).style, style)
   }
 
@@ -100,21 +94,44 @@ export const useStore = defineStore('store', () => {
     isClickComponent.value = status
   }
 
+
+  const setCanvasStyle = (style: CanvasStyleData, state: any) => {
+    console.log('state', state);
+
+    canvasStyleData = style
+  }
+
+  // 通过json设置组件
+  const aceSetcurComponent = (compJSON: any) => {
+    for (let i = 0; i < componentData.value.length; i++) {
+      if (componentData.value[i].id === compJSON.id) {
+        componentData.value.splice(i, 1)
+      }
+    }
+    componentData.value.push(compJSON)
+    curComponent.value = compJSON
+  }
+
+
   return {
+    ...state,
+    ...components,
     ...layer,
     ...compose,
+    ...snapshot,
     editMode,
     canvasStyleData,
-    componentData,
     curComponent,
     curComponentIndex,
     isClickComponent,
     addComponent,
-    setCurComponent,
     upComponent,
     downComponent,
     deleteComponent,
     setShapeStyle,
+    setCanvasStyle,
+    aceSetcurComponent,
     setClickComponentStatus,
+    setEditMode
   }
 })

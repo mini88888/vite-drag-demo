@@ -1,7 +1,7 @@
 import title from '@/assets/title.jpg'
 
 // 公共样式
-const commonStyle = {
+export const commonStyle = {
   rotate: 0,
   opacity: 1,
 }

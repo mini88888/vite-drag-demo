@@ -4,17 +4,18 @@ export interface Position {
   y: number
 }
 export interface Style {
-  width?: number;
-  height?: number;
-  top?: number
-  left?: number
-  fontSize?: string;
-  fontWeight?: number;
-  lineHeight?: string;
-  letterSpacing?: number;
-  textAlign?: string;
-  color?: string;
-  rotate?: number
+  // width?: number;
+  // height?: number;
+  // top?: number
+  // left?: number
+  // fontSize?: string;
+  // fontWeight?: number;
+  // lineHeight?: string;
+  // letterSpacing?: number;
+  // textAlign?: string;
+  // color?: string;
+  // rotate?: number;
+  [key: string]: string | number,
 }
 
 interface Request {

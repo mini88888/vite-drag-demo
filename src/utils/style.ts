@@ -81,3 +81,19 @@ export const getSVGStyle = (style: Style, filter: string[] = []) => {
 
   return result
 }
+
+const filterKeys = ['width', 'height', 'scale']
+export function getCanvasStyle(canvasStyleData: Style) {
+  console.log('canvasStyleData', canvasStyleData);
+
+  const result: Record<string, any> = {}
+  Object.keys(canvasStyleData).filter(key => !filterKeys.includes(key)).forEach(key => {
+    if (!isVaildKey(key, canvasStyleData)) return
+    result[key] = canvasStyleData[key]
+    if (key === 'fontSize') {
+      result[key] += 'px'
+    }
+  })
+
+  return result
+}

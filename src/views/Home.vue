@@ -6,7 +6,7 @@ import ComponentList from '@/components/ComponentList.vue'
 import RealTimeComponentList from '@/components/RealTimeComponentList.vue'
 import Editor from '@/components/Editor/index.vue'
 import componentList from '@/custom-component/component-list'
-import { deepCopy, generateID } from '@/utils'
+import { deepCopy, generateID, changeComponentSizeWithScale } from '@/utils'
 import { storeToRefs } from 'pinia'
 
 const store = useStore()
@@ -29,7 +29,10 @@ const handleDrop = (e: HTMLElement) => {
     component.style.top = e.clientY - rectInfo.y
     component.style.left = e.clientX - rectInfo.x
     component.id = generateID()
+
+    changeComponentSizeWithScale(component)
     store.addComponent(component)
+    store.recordSnapshot()
   }
 }
 const handleDragOver = (e: HTMLElement) => {

@@ -1,15 +1,16 @@
 import { divide, multiply } from 'mathjs'
 import { useStore } from '@/store'
+import { componentItem } from '@/types'
 
-const { canvasStyleData } = useStore()
 
 const needToChangeAttrs2 = ['width', 'height', 'fontSize']
-export const changeComponentSizeWithScale = (component) => {
+export const changeComponentSizeWithScale = (component: componentItem) => {
+  const { canvasStyleData } = useStore()
   Object.keys(component.style).forEach(key => {
     if (needToChangeAttrs2.includes(key)) {
       if (key === 'fontSize' && component.style[key] === '') return
 
-      component.style[key] = format(component.style[key], canvasStyleData.scale)
+      component.style[key] = format(component.style[key] as number, canvasStyleData.scale)
     }
   })
 }
