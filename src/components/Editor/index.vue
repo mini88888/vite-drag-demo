@@ -70,15 +70,6 @@ onMounted(() => {
                  :prop-value="item.propValue"
                  :style="getComponentStyle(item.style)"
                  :request="item.request" />
-      <!-- <component
-        :is="item.component"
-        :id="'component' + item.id"
-        class="component"
-        :style="getComponentStyle(item.style)"
-        :prop-value="item.propValue"
-        :element="item"
-        :request="item.request"
-        @input="handleInput" /> -->
     </Shape>
   </div>
 </template>

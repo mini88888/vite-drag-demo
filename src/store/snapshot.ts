@@ -14,6 +14,11 @@ function getDefaultcomponentData() {
   return JSON.parse(JSON.stringify(defaultcomponentData.value))
 }
 
+export function setDefaultcomponentData(data = []) {
+  defaultcomponentData.value = data
+}
+
+
 export const undo = () => {
   if (snapshotIndex.value >= 0) {
     snapshotIndex.value--

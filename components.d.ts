@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AceEditor: typeof import('./src/components/Editor/AceEditor.vue')['default']
+    Area: typeof import('./src/components/Editor/Area.vue')['default']
     ComponentList: typeof import('./src/components/ComponentList.vue')['default']
     ComponentWrapper: typeof import('./src/components/Editor/ComponentWrapper.vue')['default']
     copy: typeof import('./src/components/Editor/index copy.vue')['default']

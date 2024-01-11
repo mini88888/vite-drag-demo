@@ -10,6 +10,8 @@ import type { CanvasStyleData, componentItem, Style } from '@/types'
 
 export const useStore = defineStore('store', () => {
   const { componentData, curComponent, curComponentIndex } = state
+  console.log('componentDataStore', componentData);
+
 
   // 编辑器模式 edit/preview
   const editMode = ref<string>('edit')

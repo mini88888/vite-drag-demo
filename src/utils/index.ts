@@ -6,6 +6,8 @@ export * from './changeComponentsSizeWithScale'
 export * from './attr'
 export * from './request'
 export * from './toast'
+export * from './runAnimation'
+export * from './decomposeComponent'
 import { multiply, divide } from 'mathjs'
 import { useStore } from '@/store'
 

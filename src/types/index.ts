@@ -32,7 +32,7 @@ export interface componentItem {
   id: string,
   component: string;
   label: string;
-  propValue: string;
+  propValue: any;
   icon: string;
   request: Request;
   style: Style;

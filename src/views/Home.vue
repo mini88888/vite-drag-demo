@@ -19,7 +19,7 @@ onMounted(() => {
 
 // 拖动组件到画布
 const handleDrop = (e: HTMLElement) => {
-  console.log('handleDrop', e)
+  // console.log('handleDrop', e)
   e.preventDefault()
   e.stopPropagation()
   const index = e.dataTransfer.getData('index')
@@ -56,6 +56,22 @@ const deselectCurComponent = (e: HTMLElement) => {
     })
   }
 }
+
+const restore = () => {
+  // 用保存的数据恢复画布
+  if (localStorage.getItem('canvasData')) {
+    store.setDefaultcomponentData(
+      JSON.parse(localStorage.getItem('canvasData'))
+    )
+    store.setComponentData(JSON.parse(localStorage.getItem('canvasData')))
+  }
+
+  if (localStorage.getItem('canvasStyle')) {
+    store.setCanvasStyle(localStorage.getItem('canvasStyle'))
+  }
+}
+
+onMounted(() => restore())
 </script>
 
 <template>

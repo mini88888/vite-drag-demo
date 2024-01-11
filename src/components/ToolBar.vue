@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useStore } from '@/store'
 import Preview from '@/components/Editor/Preview.vue'
 import AceEditor from '@/components/Editor/AceEditor.vue'
 import { commonStyle, commonAttr } from '@/custom-component/component-list'
 import { toast, generateID, changeComponentSizeWithScale, $ } from '@/utils'
-import { fa } from 'element-plus/es/locale'
+import { ElMessage } from 'element-plus'
 
 const {
   canvasStyleData,
+  componentData,
   undo,
   redo,
   addComponent,
   recordSnapshot,
-  setEditMode
+  setEditMode,
+  setCurComponent,
+  setComponentData,
+  areaData,
+  compose
 } = useStore()
 
 const isShowAceEditor = ref<boolean>(false)
@@ -22,7 +27,7 @@ const handleAceEditorChange = () => {
   isShowAceEditor.value = !isShowAceEditor.value
 }
 const closeEditor = () => {
-  isShowAceEditor.value = !isShowAceEditor.value
+  handleAceEditorChange()
 }
 
 const handleFileChange = (e) => {
@@ -84,6 +89,37 @@ const preview = (isScreenshotVal: boolean) => {
   isShowPreview.value = true
   setEditMode('preview')
 }
+
+const handlePreviewChange = () => {
+  isShowPreview.value = false
+  setEditMode('edit')
+}
+
+const save = () => {
+  localStorage.setItem('canvasData', JSON.stringify(componentData))
+  localStorage.setItem('canvasStyle', JSON.stringify(canvasStyleData))
+  ElMessage({
+    message: '保存成功',
+    type: 'success'
+  })
+}
+
+const clearCanvas = () => {
+  setCurComponent({ component: null, index: null })
+  setComponentData([])
+  recordSnapshot()
+}
+
+const composeHandle = () => {
+  compose()
+  recordSnapshot()
+}
+
+onMounted(() => {
+  // eventBus.$on('preview', this.preview)
+  // eventBus.$on('save', this.save)
+  // eventBus.$on('clearCanvas', this.clearCanvas)
+})
 </script>
 
 <template>
@@ -100,9 +136,10 @@ const preview = (isScreenshotVal: boolean) => {
              @change="handleFileChange" />
     </label>
     <el-button @click="preview(false)">预览</el-button>
-    <el-button @click="handleAceEditorChange">保存</el-button>
-    <el-button @click="handleAceEditorChange">清空画布</el-button>
-    <el-button @click="handleAceEditorChange">组合</el-button>
+    <el-button @click="save">保存</el-button>
+    <el-button @click="clearCanvas">清空画布</el-button>
+    <el-button :disabled="!areaData.components.length"
+               @click="composeHandle">组合</el-button>
     <el-button @click="handleAceEditorChange">拆分</el-button>
     <el-button @click="handleAceEditorChange">锁定</el-button>
     <el-button @click="handleAceEditorChange">解锁</el-button>
@@ -113,7 +150,6 @@ const preview = (isScreenshotVal: boolean) => {
       <el-input class="w-20"
                 v-model="canvasStyleData.height" />
     </div>
-
   </div>
   <!-- 预览 -->
   <Preview v-if="isShowPreview"
