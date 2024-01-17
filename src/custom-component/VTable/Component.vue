@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { componentItem } from '@/type'
-import request from '@/utils/request'
+import req from '@/utils/request'
 import { onMounted, ref, onBeforeUnmount } from 'vue'
 interface Props {
   element: componentItem
@@ -8,17 +8,17 @@ interface Props {
   request: componentItem.request
 }
 
-const props = defineProps<Props>()
+const { element, propValue, request } = defineProps<Props>()
 const cancelRequest = ref<any>(null)
 
 onMounted(() => {
-  if (props.request) {
-    cancelRequest.value = request(props.request, props.propValue, 'data')
+  if (request) {
+    cancelRequest.value = req(request, propValue, 'data')
   }
 })
 
 onBeforeUnmount(() => {
-  props.request && cancelRequest()
+  request && cancelRequest()
 })
 </script>
 

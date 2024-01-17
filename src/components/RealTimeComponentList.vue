@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import { useStore } from '@/store'
+import { storeToRefs } from 'pinia'
 import { log } from 'console'
 
 const {
   componentData,
-  curComponentIndex,
   setCurComponent,
   upComponent,
   downComponent,
   deleteComponent
-} = useStore()
+} = storeToRefs(useStore())
 
 const getComponent = (index) => {
-  return componentData[componentData.length - 1 - index]
+  return (
+    componentData.value[componentData.value.length - 1 - index] || { icon: '' }
+  )
 }
 
 const onClick = (index: number) => {
-  setCurComponent({ component: componentData[index], index })
+  setCurComponent({ component: componentData.value[index], index })
 }
 const transformIndex = (index: T): T => {
-  return componentData.length - 1 - index
+  return componentData.value.length - 1 - index
 }
 const upComponentHandle = (index: number) => {
   setTimeout(() => upComponent(index))

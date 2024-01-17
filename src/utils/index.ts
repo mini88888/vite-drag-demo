@@ -46,3 +46,8 @@ export const swap = (arr: Array<any>, i: number, j: number) => {
   arr[i] = arr[j]
   arr[j] = temp
 }
+
+const components = ['VText', 'RectShape', 'CircleShape']
+export function isPreventDrop(component: string) {
+  return !components.includes(component) && !component.startsWith('SVG')
+}

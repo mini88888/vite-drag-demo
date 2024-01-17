@@ -6,10 +6,13 @@ import AceEditor from '@/components/Editor/AceEditor.vue'
 import { commonStyle, commonAttr } from '@/custom-component/component-list'
 import { toast, generateID, changeComponentSizeWithScale, $ } from '@/utils'
 import { ElMessage } from 'element-plus'
+import { storeToRefs } from 'pinia'
+
+const { canvasStyleData, componentData, curComponent, areaData } = storeToRefs(
+  useStore()
+)
 
 const {
-  canvasStyleData,
-  componentData,
   undo,
   redo,
   addComponent,
@@ -17,8 +20,10 @@ const {
   setEditMode,
   setCurComponent,
   setComponentData,
-  areaData,
-  compose
+  compose,
+  decompose,
+  lock,
+  unlock
 } = useStore()
 
 const isShowAceEditor = ref<boolean>(false)
@@ -96,7 +101,7 @@ const handlePreviewChange = () => {
 }
 
 const save = () => {
-  localStorage.setItem('canvasData', JSON.stringify(componentData))
+  localStorage.setItem('canvasData', JSON.stringify(componentData.value))
   localStorage.setItem('canvasStyle', JSON.stringify(canvasStyleData))
   ElMessage({
     message: '保存成功',
@@ -112,6 +117,11 @@ const clearCanvas = () => {
 
 const composeHandle = () => {
   compose()
+  recordSnapshot()
+}
+
+const decomposeHandle = () => {
+  decompose()
   recordSnapshot()
 }
 
@@ -140,9 +150,12 @@ onMounted(() => {
     <el-button @click="clearCanvas">清空画布</el-button>
     <el-button :disabled="!areaData.components.length"
                @click="composeHandle">组合</el-button>
-    <el-button @click="handleAceEditorChange">拆分</el-button>
-    <el-button @click="handleAceEditorChange">锁定</el-button>
-    <el-button @click="handleAceEditorChange">解锁</el-button>
+    <el-button :disabled="!curComponent || curComponent.isLock || curComponent.component != 'Group'"
+               @click="decomposeHandle">拆分</el-button>
+    <el-button :disabled="!curComponent || curComponent.isLock"
+               @click="lock">锁定</el-button>
+    <el-button :disabled="!curComponent || !curComponent.isLock"
+               @click="unlock">解锁</el-button>
     <el-button @click="handleAceEditorChange">截图</el-button>
     <div class="m-x-2">
       画布大小：<el-input class="w-20"
@@ -150,6 +163,7 @@ onMounted(() => {
       <el-input class="w-20"
                 v-model="canvasStyleData.height" />
     </div>
+
   </div>
   <!-- 预览 -->
   <Preview v-if="isShowPreview"

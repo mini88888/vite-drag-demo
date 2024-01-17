@@ -9,7 +9,7 @@ export default defineConfig({
       exclude: ['node_modules', 'dist', '.git', '.vscode', 'public', 'plugins', 'mock', './index.html']
     }
   },
-  shortcuts: {
+  shortcuts: [{
     'wh-full': 'w-full h-full',
     'flex-center': 'flex justify-center items-center',
     'flex-x-center': 'flex justify-center',
@@ -25,6 +25,9 @@ export default defineConfig({
     'border-right': 'border-r-[1px] border-r-solid border-[#ddd]',
     'border-left': 'border-l-[1px] border-l-solid border-[#ddd]',
   },
+  // [/^btn-(.*)$/, ([, c]) => `bg-${c}-400 text-${c}-100 py-2 px-4 rounded-lg`],
+  [/^border-color-(.*)$/, ([, c]) => `border-[1px] border-solid border-[${c}]`],
+  ],
   theme: {
     colors: {
       primary: 'rgb(var(--primary-color))'

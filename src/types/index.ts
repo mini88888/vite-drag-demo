@@ -34,6 +34,12 @@ export interface componentItem {
   label: string;
   propValue: any;
   icon: string;
-  request: Request;
+  request?: Request;
   style: Style;
+  groupStyle: Style,
+  isLock: boolean
+}
+export interface AreaData {
+  style: Style,
+  components: Array<componentItem>
 }

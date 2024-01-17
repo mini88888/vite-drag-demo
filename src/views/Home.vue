@@ -26,6 +26,8 @@ const handleDrop = (e: HTMLElement) => {
   const rectInfo = editor.getBoundingClientRect()
   if (index) {
     const component = deepCopy(componentList[index])
+    console.log('component', component)
+
     component.style.top = e.clientY - rectInfo.y
     component.style.left = e.clientX - rectInfo.x
     component.id = generateID()
@@ -63,6 +65,8 @@ const restore = () => {
     store.setDefaultcomponentData(
       JSON.parse(localStorage.getItem('canvasData'))
     )
+    console.log('restore', JSON.parse(localStorage.getItem('canvasData')))
+
     store.setComponentData(JSON.parse(localStorage.getItem('canvasData')))
   }
 

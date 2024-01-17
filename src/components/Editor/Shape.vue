@@ -315,13 +315,22 @@ const getCursor = () => {
 
 <template>
   <div ref="shape"
-       :class="active ? 'select-none outline outline-1 outline-[#70c0ff]' : ''"
-       class="absolute hover:cursor-move text-[14px]"
+       class="shape absolute hover:cursor-move text-[14px]"
+       :class="{
+        'select-none': active,
+        'outline': active,
+        'outline-1': active,
+        'outline-[#70c0ff]': active,
+        'opacity-[0.5]': props.element.isLock,
+        'hover:cursor-not-allowed': props.element.isLock,
+       }"
        @click="selectCurComponent"
        @mousedown="handleMouseDownOnShape">
     <span v-show="isActive"
           class="iconfont icon-xuanzhuan text-[20px] color-[#59c7f9] absolute top-[-34px] left-[50%] m-l-[-10px]"
           @mousedown="handleRotate"></span>
+    <span v-show="props.element.isLock"
+          class="iconfont icon-suoding absolute right-0 top-0"></span>
     <div v-for="item in (isActive ? getPointList() : [])"
          :key="item"
          class="absolute bg-[#fff] w-[8px] h-[8px] rounded-[50%] border border-[#59c7f9] border-solid"

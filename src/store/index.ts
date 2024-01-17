@@ -1,17 +1,15 @@
 import { defineStore } from "pinia";
 import { swap, toast } from '@/utils'
 import { reactive, ref } from "vue";
-import * as state from './state'
 import compose from './compose'
 import layer from './layer'
 import * as components from './components'
 import * as snapshot from './snapshot'
+import * as lock from './lock'
 import type { CanvasStyleData, componentItem, Style } from '@/types'
 
 export const useStore = defineStore('store', () => {
-  const { componentData, curComponent, curComponentIndex } = state
-  console.log('componentDataStore', componentData);
-
+  const { componentData, curComponent, curComponentIndex } = components
 
   // 编辑器模式 edit/preview
   const editMode = ref<string>('edit')
@@ -30,30 +28,6 @@ export const useStore = defineStore('store', () => {
     background: '#fff',
     fontSize: 14,
   })
-
-  // 添加组件
-  const addComponent = (component: componentItem) => {
-    componentData.value.push(component)
-  }
-
-
-  // 删除组件
-  const deleteComponent = (index: number) => {
-    console.log('deleteComponent', index);
-
-    if (index === undefined) {
-      index = curComponentIndex.value
-    }
-
-    if (index == curComponentIndex.value) {
-      curComponentIndex.value = -1
-      curComponent.value = null
-    }
-
-    if (/\d/.test(`${index}`)) {
-      componentData.value.splice(index, 1)
-    }
-  }
 
   // 上移图层
   const upComponent = () => {
@@ -116,20 +90,18 @@ export const useStore = defineStore('store', () => {
 
 
   return {
-    ...state,
     ...components,
     ...layer,
     ...compose,
     ...snapshot,
+    ...lock,
     editMode,
     canvasStyleData,
     curComponent,
     curComponentIndex,
     isClickComponent,
-    addComponent,
     upComponent,
     downComponent,
-    deleteComponent,
     setShapeStyle,
     setCanvasStyle,
     aceSetcurComponent,

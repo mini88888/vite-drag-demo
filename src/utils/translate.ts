@@ -49,3 +49,7 @@ export function changeStyleWithScale(value: number) {
   const { canvasStyleData } = useStore()
   return multiply(value, divide(parseInt(`${canvasStyleData.scale}`), 100))
 }
+
+export function toPercent(val: number) {
+  return val * 100 + '%'
+}

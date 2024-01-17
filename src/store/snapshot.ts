@@ -1,6 +1,5 @@
 import { ref } from 'vue'
-import { curComponent, componentData } from './state'
-import { setCurComponent, setComponentData } from './components'
+import { curComponent, componentData, setCurComponent, setComponentData } from './components'
 import { deepCopy } from '@/utils'
 import type { componentItem } from '@/types'
 
