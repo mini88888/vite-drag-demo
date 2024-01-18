@@ -5,6 +5,7 @@ import ComponentWrapper from './ComponentWrapper.vue'
 import { componentItem } from '@/types'
 import { useStore } from '@/store'
 import { deepCopy, getCanvasStyle, changeStyleWithScale } from '@/utils'
+import { toPng } from 'html-to-image'
 
 const { componentData, canvasStyleData } = toRefs(useStore())
 
@@ -18,10 +19,23 @@ const emit = defineEmits<{
 
 const copyData = ref<componentItem[]>([])
 
-const htmlToImage = () => {}
-
 const close = () => {
   emit('close')
+}
+
+const container = ref<HTMLElement>(null)
+const htmlToImage = () => {
+  toPng(container.value.querySelector('.canvas'))
+    .then((dataUrl) => {
+      const a = document.createElement('a')
+      a.setAttribute('download', 'screenshot')
+      a.href = dataUrl
+      a.click()
+    })
+    .catch((error) => {
+      console.error('oops, something went wrong!', error)
+    })
+    .finally(close)
 }
 
 onMounted(() => {
@@ -36,10 +50,10 @@ onMounted(() => {
                class="absolute right-[20px] top-[20px]"
                @click="close">关闭</el-button>
     <el-button v-else
-               class="close"
+               class="absolute right-[20px] top-[20px]"
                @click="htmlToImage">确定</el-button>
     <div class="w-[calc(100%-40px)] h-[calc(100%-120px)] overflow-auto">
-      <div class="bg-[#fff] relative m-auto"
+      <div class="bg-[#fff] relative m-auto canvas"
            :style="{
                     ...getCanvasStyle(canvasStyleData),
                     width: changeStyleWithScale(canvasStyleData.width) + 'px',

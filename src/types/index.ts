@@ -37,7 +37,8 @@ export interface componentItem {
   request?: Request;
   style: Style;
   groupStyle: Style,
-  isLock: boolean
+  isLock: boolean,
+  animations: Array<any>,
 }
 export interface AreaData {
   style: Style,

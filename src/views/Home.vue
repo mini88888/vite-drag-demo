@@ -4,6 +4,8 @@ import { onMounted, ref } from 'vue'
 import ToolBar from '@/components/ToolBar.vue'
 import ComponentList from '@/components/ComponentList.vue'
 import RealTimeComponentList from '@/components/RealTimeComponentList.vue'
+import CanvasAttr from '@/components/CanvasAttr.vue'
+import AnimationList from '@/components/AnimationList.vue' // 右侧动画列表
 import Editor from '@/components/Editor/index.vue'
 import componentList from '@/custom-component/component-list'
 import { deepCopy, generateID, changeComponentSizeWithScale } from '@/utils'
@@ -108,10 +110,13 @@ onMounted(() => restore())
             <component :is="store.curComponent.component + 'Attr'" />
           </el-tab-pane>
           <el-tab-pane label="动画"
-                       name="animation">配置管理</el-tab-pane>
+                       name="animation">
+            <AnimationList />
+          </el-tab-pane>
           <el-tab-pane label="事件"
                        name="events">角色管理</el-tab-pane>
         </el-tabs>
+        <CanvasAttr v-else></CanvasAttr>
       </section>
     </div>
   </div>
