@@ -3,13 +3,10 @@ import { useStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { log } from 'console'
 
-const {
-  componentData,
-  setCurComponent,
-  upComponent,
-  downComponent,
-  deleteComponent
-} = storeToRefs(useStore())
+const { componentData } = storeToRefs(useStore())
+
+const { setCurComponent, upComponent, downComponent, deleteComponent } =
+  useStore()
 
 const getComponent = (index) => {
   return (

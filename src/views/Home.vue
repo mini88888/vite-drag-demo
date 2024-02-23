@@ -103,8 +103,7 @@ onMounted(() => restore())
       <!-- 右侧属性 -->
       <section class="overflow-auto">
         <el-tabs v-if="store.curComponent"
-                 v-model="activeName"
-                 @tab-click="handleClick">
+                 v-model="activeName">
           <el-tab-pane label="属性"
                        name="attr">
             <component :is="store.curComponent.component + 'Attr'" />

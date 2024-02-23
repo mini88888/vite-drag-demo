@@ -5,6 +5,8 @@ interface AnimationsItem {
 }
 
 export async function runAnimation($el: HTMLElement, animations: Array<AnimationsItem> = []) {
+  console.log('$el', $el);
+
   const play = (animation: AnimationsItem) => new Promise<void>(resolve => {
     const { animationTime, value = '', isLoop } = animation
     $el.style.setProperty('--time', animationTime + 's')

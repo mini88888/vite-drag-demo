@@ -2,8 +2,9 @@
 import { computed, withDefaults, onMounted, reactive, ref } from 'vue'
 import { useStore } from '@/store'
 import type { componentItem } from '@/store/type'
-import { mod360, calculateComponentPositonAndSize } from '@/utils'
+import { mod360, calculateComponentPositonAndSize, runAnimation } from '@/utils'
 import { storeToRefs } from 'pinia'
+import eventBus from '@/utils/eventBus'
 
 interface Props {
   active: boolean
@@ -311,6 +312,14 @@ const getCursor = () => {
 
   return result
 }
+
+onMounted(() => {
+  eventBus.on('runAnimation', () => {
+    if (props.element == store.curComponent) {
+      runAnimation(shape.value, store.curComponent.animations)
+    }
+  })
+})
 </script>
 
 <template>

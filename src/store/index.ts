@@ -6,6 +6,7 @@ import layer from './layer'
 import * as components from './components'
 import * as snapshot from './snapshot'
 import * as lock from './lock'
+import * as animation from './animation'
 import type { CanvasStyleData, componentItem, Style } from '@/types'
 
 export const useStore = defineStore('store', () => {
@@ -95,6 +96,7 @@ export const useStore = defineStore('store', () => {
     ...compose,
     ...snapshot,
     ...lock,
+    ...animation,
     editMode,
     canvasStyleData,
     curComponent,

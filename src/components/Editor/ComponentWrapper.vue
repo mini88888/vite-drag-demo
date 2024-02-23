@@ -11,7 +11,7 @@ const { config } = defineProps<{
 const componentEl = ref<HTMLElement>(null)
 
 onMounted(() => {
-  runAnimation(componentEl, config.animations)
+  runAnimation(componentEl.value.$el, config.animations)
 })
 </script>
 
@@ -21,7 +21,7 @@ onMounted(() => {
        @mouseenter="onMouseEnter">
     <component :is="config.component"
                v-if="config.component.startsWith('SVG')"
-               ref="component"
+               ref="componentEl"
                class="component absolute"
                :style="getSVGStyle(config.style)"
                :prop-value="config.propValue"
@@ -31,7 +31,7 @@ onMounted(() => {
 
     <component :is="config.component"
                v-else
-               ref="component"
+               ref="componentEl"
                class="component absolute"
                :style="getStyle(config.style)"
                :prop-value="config.propValue"
